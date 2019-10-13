@@ -6,7 +6,7 @@
 #    By: smaddox <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 11:23:03 by smaddox           #+#    #+#              #
-#    Updated: 2019/10/13 13:59:54 by smaddox          ###   ########.fr        #
+#    Updated: 2019/10/13 14:00:52 by smaddox          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ def parsing():
             all_stops.append(stop_obj)
         route_obj = route(temp_route['id'], all_stops)
         all_routes.append(route_obj)
+    return(all_routes)
 
 
         
