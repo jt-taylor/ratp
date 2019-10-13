@@ -14,7 +14,10 @@
 class navitia_query
 {
 	private		$base_url = 'https://api.navitia.io/v1/coverage/fr-idf/';
+	private		$base = 'https://api.navitia.io/v1/coord';
+
 	# fill me in
+	# please don't kill my token :{
 	private		$auth_token = '66d766fa-4408-4dfd-be38-21e851a208cb';
 	# is this the right syntax ?
 
@@ -55,6 +58,8 @@ class navitia_query
 	private function make_api_query(string $url)
 	{
 		$qu = $this->calc_query_url($url);
+		echo $qu;
+		echo "\n";
 		$cu = curl_init();
 		curl_setopt($cu, CURLOPT_URL, $qu);
 		curl_setopt($cu, CURLOPT_USERPWD, $this->auth_token);
@@ -62,7 +67,7 @@ class navitia_query
 		curl_setopt($cu, CURLOPT_RETURNTRANSFER, true);
 		$out = curl_exec($cu);
 #for testing we can cache the file
-	#	$out = file_get_contents('test.json');
+		#$out = file_get_contents('test.json');
 		curl_close($cu);
 		#return an array instead of the object
 		return json_decode($out, true);
@@ -75,6 +80,58 @@ class navitia_query
 		return $this->base_url . $url;
 	}
 
+	public function get_metro_wgs84($place1)
+	{
+		##
+		#
+		exit("coords not implemented yet");
+		#
+		##
+		$qu = $this->base . "/" . $place1;
+
+		$cu = curl_init();
+		curl_setopt($cu, CURLOPT_URL, $qu);
+		curl_setopt($cu, CURLOPT_USERPWD, $this->auth_token);
+		curl_setopt($cu, CURLOPT_RETURNTRANSFER, true);
+		$out = curl_exec($cu);
+		curl_close($cu);
+		$return_v = json_decode($out, true);
+		$j = $return_v['address']['label'];
+		if (substr_count($j, "(Paris)") == 1)
+		{
+			$tmp = substr_replace($j, "", -7);
+			echo $tmp . "\n";
+			return ($this->get_metro(preg_replace("/[\s]+/", '%', trim($tmp))));
+		}
+		else
+			exit("not found in paris");
+	}
+
+	public function get_all_routes()
+	{
+		$qu = "https://api.navitia.io/v1/coverage/fr-idf/networks/network:0:439/routes?depth=3&disable_geojson=true";
+		echo $qu . "\n";
+		$cu = curl_init();
+		curl_setopt($cu, CURLOPT_URL, $qu);
+		curl_setopt($cu, CURLOPT_USERPWD, $this->auth_token);
+		curl_setopt($cu, CURLOPT_RETURNTRANSFER, true);
+		$out = curl_exec($cu);
+		curl_close($cu);
+		$tmp_arr = json_decode($out, true);
+		$ret = $tmp_arr['routes'];
+		$my_route_stop_points = array();
+		foreach ($ret as $i)
+		{
+			foreach ($i['stop_points'] as $stop)
+			{
+				$my_route_stop_points[$i['id']][] = array('label' => $stop['stop_area']['label'],
+					'id' => $stop['id']);
+			}
+		}
+		file_put_contents('tmp_semi_parsed_stop_points.json', json_encode($my_route_stop_points));
+		file_put_contents('tmp_all_rout_info.json', json_encode($ret));
+	}
+
 	#get metro station
 	public function get_metro($place1)
 	{
@@ -83,7 +140,6 @@ class navitia_query
 		#return a nearby metro station
 		return $this->nearest_s($return_v);
 	}
-
 }
 
 $len = count($argv);
@@ -92,23 +148,34 @@ if ($len == 3)
 	if (strlen($argv[1]) > 0 && strlen($argv[2]) > 0)
 	{
 		$cl = new navitia_query();
-		$station_start = $cl->get_metro(preg_replace("/[\s]+/", '%', trim($argv[1])));
+		#check if name || geo location
+		if (preg_match("/(\d)+[.](\d)+[;](\d)+[.](\d)+/", $argv[1]))
+		{
+			#		$station_start = $cl->get_metro_wgs84($argv[1]);
+			exit("wgs84 location not supported yet");
+		}
+		else
+			$station_start = $cl->get_metro(preg_replace("/[\s]+/", '%', trim($argv[1])));
 		$station_final = $cl->get_metro(preg_replace("/[\s]+/", '%', trim($argv[2])));
-		echo "station start == ";
-		print_r($station_start);
-		echo "\n";
-		echo "station final == ";
-		print_r($station_final);
-
-		#not sure if you guys wanna do php or not , this puts it back into json
+		##
+		#
+	#	echo "station start == ";
+	#	print_r($station_start);
+	#	echo "\n";
+	#	echo "station final == ";
+	#	print_r($station_final);
+		#
+		##
+		$cl->get_all_routes("");
 		file_put_contents('tmp_start.json', json_encode($station_start));
 		file_put_contents('tmp_final.json', json_encode($station_final));
-		#test
-		#print_r($cl->make_api_query(''));
-		#print_r($cl->get_metro($argv[1]));
 	}
 	else
 		echo "please input two valid strings";
+}
+else if ($len == 2)
+{
+	echo "Not implemented yet :: single query";
 }
 else
 	echo "usage :: php run_me start_dest end_dest";
