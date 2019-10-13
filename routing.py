@@ -6,7 +6,7 @@
 #    By: smaddox <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 11:23:03 by smaddox           #+#    #+#              #
-#    Updated: 2019/10/13 14:00:52 by smaddox          ###   ########.fr        #
+#    Updated: 2019/10/13 14:37:03 by smaddox          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,11 +40,6 @@ def parsing():
         all_routes.append(route_obj)
     return(all_routes)
 
-
-        
-
-
-
 class stop_area:
     def __init__(self, name, stop_id, physical_mode):
         self.name = name
@@ -74,20 +69,28 @@ class route:
         except:
             return(False)
 
+class path_finder:
+    def __init__(self, Ps, Pt, all_routes):
+        self.path_profiles = [ ]
+
 
 class app():
-    # all routes (route id and all stop areas)
-    routes = list()
-    # consecutive stop areas from source point to target point
-    path = list()
-
+    def __init__(self):
+        pass
+        # do nothing for now
+        # parse json that has start point info (Ps for Point source)
+        #   -> self.Ps = get_startpoint()       
+        # parse json that has end point info (Pt for point target)
+        #   -> self.Pt = get_endpoint()
+        # parse for all the available roots
+        #   -> self.routes = get_routes()
+        # find path / consecutive stop areas from source point to target point
+        #   -> pathfinder = path_finder(self.Ps, self.Pt, self.routes)
+        #   -> pathfinder.print_solution()
 
 def main():
-    stops = []
-    temp = stop_area("first", "BA:SS:12:213", "metro")
-    stops.append(stop_area("first", "BA:SS:12:213", "metro"))
-    new_route = route("jdsaflkj", stops)
-    print(new_route.get_index(temp))
+    new_application = app()
 
-
+if __name__ == "__main__":
+    main()
 main()
