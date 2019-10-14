@@ -6,7 +6,7 @@
 #    By: smaddox <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 17:25:37 by smaddox           #+#    #+#              #
-#    Updated: 2019/10/13 21:28:23 by smaddox          ###   ########.fr        #
+#    Updated: 2019/10/13 22:05:44 by smaddox          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ import math
 class path_finder:
 
     def __init__(self):
-        self.pathprofile = [ ]
         self.connections = [ ] 
 
     def solve(self, routes, startpoint, endpoint):

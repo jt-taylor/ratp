@@ -6,7 +6,7 @@
 #    By: smaddox <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 11:23:03 by smaddox           #+#    #+#              #
-#    Updated: 2019/10/13 21:28:07 by smaddox          ###   ########.fr        #
+#    Updated: 2019/10/13 22:12:19 by smaddox          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ class app():
 
 def main(argv):
     querie = "php run_me.php " + "'"+argv[1] + "' '" + argv[2]+ "'"
-    output = os.system(querie)
+    output = os.system(querie + " 1>/dev/null")
     new_application = app()
     
 
