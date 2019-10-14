@@ -82,7 +82,8 @@ class navitia_query
 
 	public function get_departure_time_stop_area($stop_area)
 	{
-		$qu = "https://api.navitia.io/v1/coverage/fr-idf/networks/network%3A0%3A439/stop_areas/" .$stop_area . "/departures?count=1000&";
+		$dt = new DateTime('now');
+		$qu = "https://api.navitia.io/v1/coverage/fr-idf/networks/network%3A0%3A439/stop_areas/" .$stop_area . "/departures?count=100&from_datetime=" . $dt->format('c');
 		echo $qu . "\n";
 		$cu = curl_init();
 		curl_setopt($cu, CURLOPT_URL, $qu);
@@ -234,7 +235,6 @@ if ($len == 3)
 			file_put_contents('tmp_final.json', json_encode($station_final));
 		}
 		$tmp = json_decode(file_get_contents('tmp_start.json'), true);
-		print_r($tmp);
 		$tmp1 = $tmp[0]['id'];
 		$depart = $cl->get_departure_time_stop_area($tmp1);
 #		$cl->get_network_arivals();
