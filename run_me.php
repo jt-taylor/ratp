@@ -247,6 +247,4 @@ else if ($len == 2)
 {
 	echo "Not implemented yet :: single query";
 }
-else
-	echo "usage :: php run_me start_dest end_dest";
 ?>

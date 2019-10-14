@@ -6,13 +6,15 @@
 #    By: smaddox <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 11:23:03 by smaddox           #+#    #+#              #
-#    Updated: 2019/10/13 17:54:19 by smaddox          ###   ########.fr        #
+#    Updated: 2019/10/13 21:25:12 by smaddox          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 from data_structures import *
 from path_finder import *
 from parsing import *
+import os
+import sys
 
 class app():
     def __init__(self):
@@ -27,8 +29,11 @@ class app():
         self.pathfinder.solve(self.routes, self.startpoint, self.endpoint)
 #        self.pathfinder.print_solution()
 
-def main():
+def main(argv):
+    querie = "php run_me.php " + "'"+argv[1] + "' '" + argv[2]+ "'"
+    output = os.system(querie)
     new_application = app()
+    
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv)

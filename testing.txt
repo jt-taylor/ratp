@@ -1,0 +1,33 @@
+https://api.navitia.io/v1/coverage/fr-idf/places?q=stalingrad&type[stoppoint]=address
+https://api.navitia.io/v1/coverage/fr-idf/places?q=port%cliche&type[stoppoint]=address
+https://api.navitia.io/v1/coverage/fr-idf/networks/network:0:439/routes?depth=3&disable_geojson=true&count=50
+https://api.navitia.io/v1/coverage/fr-idf/networks/network%3A0%3A439/stop_areas/stop_area:0:SA:59279/departures?count=100&from_datetime=2019-10-14T04:23:58+00:00
+Stalingrad (Paris)
+Jaurès (Paris)
+Colonel Fabien (Paris)
+Belleville (Paris)
+Couronnes (Paris)
+Ménilmontant (Paris)
+Père Lachaise (Paris)
+Philippe Auguste (Paris)
+Alexandre Dumas (Paris)
+Avron (Paris)
+Nation (Paris)
+Avron (Paris)
+Alexandre Dumas (Paris)
+Philippe Auguste (Paris)
+Père Lachaise (Paris)
+Ménilmontant (Paris)
+Couronnes (Paris)
+Belleville (Paris)
+Colonel Fabien (Paris)
+Jaurès (Paris)
+Stalingrad (Paris)
+La Chapelle (Paris)
+Barbes / Rochechouart (Paris)
+Anvers (Paris)
+Pigalle (Paris)
+Blanche (Paris)
+Place de Clichy (Paris)
+Porte de Clichy (Paris)
+net trip length: ~51 minutes
