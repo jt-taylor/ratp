@@ -80,6 +80,19 @@ class navitia_query
 		return $this->base_url . $url;
 	}
 
+	public function get_departure_time_stop_area($stop_area)
+	{
+		$qu = "https://api.navitia.io/v1/coverage/fr-idf/networks/network%3A0%3A439/stop_areas/" .$stop_area . "/departures?count=1000&";
+		echo $qu . "\n";
+		$cu = curl_init();
+		curl_setopt($cu, CURLOPT_URL, $qu);
+		curl_setopt($cu, CURLOPT_USERPWD, $this->auth_token);
+		curl_setopt($cu, CURLOPT_RETURNTRANSFER, true);
+		$out = curl_exec($cu);
+		curl_close($cu);
+		file_put_contents('tmp_stop_point_depart_time.json', $out);
+	}
+
 	public function get_metro_wgs84($place1)
 	{
 		##
@@ -167,8 +180,8 @@ class navitia_query
 					$my_route_stop_points[$i['id']][] = array('label' => $stop['stop_area']['label'],
 						'id' => $stop['id']);
 				}
-				$this->get_route_departures($i['id']);
-				$this->get_route_arrival($i['id']);
+#				$this->get_route_departures($i['id']);
+#				$this->get_route_arrival($i['id']);
 			}
 			file_put_contents('tmp_semi_parsed_stop_points.json', json_encode($my_route_stop_points));
 			file_put_contents('tmp_all_rout_info.json', json_encode($ret));
@@ -211,7 +224,7 @@ if ($len == 3)
 	#	print_r($station_final);
 		#
 		##
-	#	if (file_exists("tmp_semi_parsed_stop_points.json"))
+	#	if (file_exists("tmp_semi_parsed_stop_points.json"))	
 		if (0)
 			;
 		else
@@ -220,6 +233,10 @@ if ($len == 3)
 			file_put_contents('tmp_start.json', json_encode($station_start));
 			file_put_contents('tmp_final.json', json_encode($station_final));
 		}
+		$tmp = json_decode(file_get_contents('tmp_start.json'), true);
+		print_r($tmp);
+		$tmp1 = $tmp[0]['id'];
+		$depart = $cl->get_departure_time_stop_area($tmp1);
 #		$cl->get_network_arivals();
 #		$cl->get_network_departures();
 	}
