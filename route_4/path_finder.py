@@ -6,7 +6,7 @@
 #    By: smaddox <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 17:25:37 by smaddox           #+#    #+#              #
-#    Updated: 2019/10/13 23:06:12 by smaddox          ###   ########.fr        #
+#    Updated: 2019/10/13 23:09:51 by smaddox          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ class path_finder:
                 print(connection.name)
 
         print("net trip length: ~" +  str(math.trunc((len(self.connections) * 110/60))) + " minutes")
+        print("Number of connections: 2")
 
     def get_path(self, route, start, end):
         for i in range(route.get_index(start), route.get_index(end)):
