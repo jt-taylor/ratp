@@ -6,7 +6,7 @@
 #    By: smaddox <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 11:23:03 by smaddox           #+#    #+#              #
-#    Updated: 2019/10/13 22:12:19 by smaddox          ###   ########.fr        #
+#    Updated: 2019/10/13 23:05:28 by smaddox          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,8 @@ class app():
         self.parse = parser()
         self.pathfinder = path_finder()
         self.routes = self.parse.get_routes("./tmp_semi_parsed_stop_points.json")
-        self.startpoint = self.parse.get_startpoint("./tmp_final.json")
-        self.endpoint = self.parse.get_endpoint("./tmp_start.json")
+        self.startpoint = self.parse.get_startpoint("./tmp_start.json")
+        self.endpoint = self.parse.get_endpoint("./tmp_final.json")
         self.pathfinder.solve(self.routes, self.startpoint, self.endpoint)
 
 def main(argv):

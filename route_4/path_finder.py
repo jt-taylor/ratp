@@ -6,7 +6,7 @@
 #    By: smaddox <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 17:25:37 by smaddox           #+#    #+#              #
-#    Updated: 2019/10/13 22:05:44 by smaddox          ###   ########.fr        #
+#    Updated: 2019/10/13 23:06:12 by smaddox          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,13 +28,14 @@ class path_finder:
         self.get_path(routes[3], stop1, stop2)
         self.get_path(end_route, stop2, endpoint)
         self.connections.append(endpoint)
-        self.print_connections()
+        self.print_connections(endpoint)
           
           
-    def print_connections(self):
-        self.connections.reverse()
+    def print_connections(self, endpoint):
+        #self.connections.reverse()
         for connection in self.connections:
-            print(connection.name)
+                print(connection.name)
+
         print("net trip length: ~" +  str(math.trunc((len(self.connections) * 110/60))) + " minutes")
 
     def get_path(self, route, start, end):
