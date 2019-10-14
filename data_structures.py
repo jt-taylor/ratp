@@ -6,7 +6,7 @@
 #    By: smaddox <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 15:22:23 by smaddox           #+#    #+#              #
-#    Updated: 2019/10/13 16:01:53 by smaddox          ###   ########.fr        #
+#    Updated: 2019/10/13 18:09:11 by smaddox          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,11 +17,10 @@ class stop_area:
 
     def __eq__(self,other):
         return self.name==other.name and \
-        self.stop_id == other.stop_id and \
-        self.physical_mode == other.physical_mode
+        self.stop_id == other.stop_id
 
     def __hash__(self):
-        return(hash((self.name,self.stop_id,self.physical_mode)))
+        return(hash((self.name,self.stop_id)))
 
     def update_time_table(self,time_table):
         self.time_table = time_table
@@ -32,8 +31,7 @@ class route:
         self.nodes=nodes
 
     def get_index(self,stop_area):
-        try:
-            index=self.nodes.index(stop_area)
-            return(index)
-        except:
-            return(False)
+        for node in self.nodes:
+            if (node.name == stop_area.name):
+                return (self.nodes.index(node))
+        return(False)
